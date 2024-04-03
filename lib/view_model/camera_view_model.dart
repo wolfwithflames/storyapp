@@ -1,9 +1,18 @@
-import 'package:auto_route/auto_route.dart';
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:media_picker_widget/media_picker_widget.dart';
+import 'package:stacked/stacked.dart';
+import 'package:storyapp/main.dart';
 import 'package:storyapp/router/router.dart';
 
-class CameraViewModel extends ChangeNotifier {
+import '../logger/app_logger.dart';
+import '../screens/camera_screen.dart';
+
+class CameraViewModel extends BaseViewModel {
+  late CameraController camController;
+
   Future<Media?> openImagePicker(BuildContext context,
       {MediaType? type}) async {
     List<Media> mediaList = [];
@@ -15,13 +24,16 @@ class CameraViewModel extends ChangeNotifier {
       ),
       builder: (context) => MediaPicker(
         mediaList: mediaList,
-        onPicked: (selectedList) {
+        onPicked: (selectedList) async {
           mediaList = selectedList;
-          Navigator.pop(context);
+          if (mediaList.isNotEmpty) {
+            await routeToAddStory(media: mediaList.first);
+            Navigator.pop(context);
+          }
         },
         onCancel: () => Navigator.pop(context),
         mediaCount: MediaCount.single,
-        mediaType: type ?? MediaType.all,
+        mediaType: type ?? MediaType.image,
         decoration: PickerDecoration(
           blurStrength: 0,
           scaleAmount: 1,
@@ -49,7 +61,47 @@ class CameraViewModel extends ChangeNotifier {
     return null;
   }
 
-  routeToAddStory(BuildContext context) {
-    context.router.pushNamed(Routes.addStory);
+  Future<void> routeToAddStory({Media? media}) async {
+    await getIt<AppRouter>().push(AddStoryRoute(media: media));
+  }
+
+  onCameraCapture() async {
+    try {
+      final XFile capturedImage = await camController.takePicture();
+      Media media = Media(
+        id: "captured_${DateTime.now().microsecondsSinceEpoch}",
+        file: File(capturedImage.path),
+        creationTime: DateTime.now(),
+      );
+      routeToAddStory(media: media);
+    } on CameraException catch (e) {
+      AppLog.e(e);
+    }
+  }
+
+  init() {
+    if (cameras.isNotEmpty) {
+      camController = CameraController(cameras[0], ResolutionPreset.max);
+      camController.initialize().then((_) {
+        notifyListeners();
+      }).catchError((Object e) {
+        if (e is CameraException) {
+          switch (e.code) {
+            case 'CameraAccessDenied':
+              // Handle access errors here.
+              break;
+            default:
+              // Handle other errors here.
+              break;
+          }
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    camController.dispose();
   }
 }

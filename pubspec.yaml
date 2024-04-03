@@ -42,6 +42,10 @@ dependencies:
   provider: ^6.1.2
   media_picker_widget: ^1.0.7
   auto_route: ^7.9.0
+  stacked: ^3.4.2
+  get_it: ^7.6.7
+  pinput: ^4.0.0
+  libphonenumber_plugin: ^0.3.3
 
 dependency_overrides:
   photo_manager: ^3.0.0
@@ -76,6 +80,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/bottom_nav/
+    - assets/flags/
     
   #   - images/a_dot_ham.jpeg
 

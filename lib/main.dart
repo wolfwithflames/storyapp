@@ -1,19 +1,22 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:storyapp/screens/camera_screen.dart';
 
 import 'router/router.dart';
 import 'screens/main_nav/main_nav_screen.dart';
 
+final getIt = GetIt.instance;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
 
-  final rootRouter = AppRouter();
+  getIt.registerSingleton<AppRouter>(AppRouter());
   runApp(
     MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: rootRouter.config(),
+      routerConfig: getIt<AppRouter>().config(),
       builder: (_, router) {
         return router ?? const FlutterLogo();
       },
