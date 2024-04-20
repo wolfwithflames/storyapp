@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "157714433125",
+    "project_id": "storyapp-3de04",
+    "storage_bucket": "storyapp-3de04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157714433125:android:cb40db44bdbb026ae5728c",
+        "android_client_info": {
+          "package_name": "com.story.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByAJswyS4kXYfK1MqkyEufgScb1rqC6yQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

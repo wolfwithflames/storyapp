@@ -4,8 +4,8 @@ import 'package:libphonenumber_plugin/libphonenumber_plugin.dart' as p;
 import 'package:storyapp/widgets/edit_text.dart';
 import 'package:storyapp/widgets/text_view.dart';
 
-import '../constants/app_colors.dart';
-import '../data/countries.dart';
+import '../core/constants/app_colors.dart';
+import '../core/data/countries.dart';
 
 typedef CountryChange = void Function(Country country);
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../constants/app_colors.dart';
+import '../core/constants/app_colors.dart';
 
+// ignore: must_be_immutable
 class EditText extends StatelessWidget {
   TextEditingController? controller;
   double fontSize;

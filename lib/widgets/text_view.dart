@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:storyapp/constants/constants.dart';
+import 'package:storyapp/core/constants/constants.dart';
 
 class TextView extends StatelessWidget {
   final String? data;
