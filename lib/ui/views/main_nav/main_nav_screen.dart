@@ -23,6 +23,7 @@ class _MainNavPageState extends State<MainNavPage> {
         resizeToAvoidBottomInset: false,
         body: PageView(
           controller: context.read<MainNavVM>().controller,
+          physics: const AlwaysScrollableScrollPhysics(),
           children: const [
             CameraScreen(),
             HomeScreen(),

@@ -4,6 +4,7 @@ import 'package:storyapp/core/constants/bottom_item.dart';
 
 class Constants {
   static const String defaultFont = "Ubuntu";
+  static const double defaultBorderRadius = 15;
   static const defaultAnimationDuration = Duration(milliseconds: 500);
 
   static GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =

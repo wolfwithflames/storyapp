@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:storyapp/core/constants/app_colors.dart';
 import 'package:storyapp/core/data/enums.dart';
-import 'package:storyapp/widgets/text_view.dart';
+import 'package:storyapp/ui/widgets/text_view.dart';
 
 // ignore: must_be_immutable
 class AppRaisedButton extends StatelessWidget {
@@ -87,6 +87,7 @@ class AppRaisedButton extends StatelessWidget {
           elevation: elevation,
           padding: padding,
           shadowColor: shadowColor,
+          disabledBackgroundColor: Colors.grey,
         ),
         onPressed: viewState == ViewState.ideal ? onPressed : null,
         child: title != null

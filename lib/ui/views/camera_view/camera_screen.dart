@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 import 'package:storyapp/ui/views/camera_view/camera_view_model.dart';
 import 'package:storyapp/ui/views/main_nav/main_nav_view_model.dart';
-import 'package:storyapp/widgets/text_view.dart';
+import 'package:storyapp/ui/widgets/text_view.dart';
 
 late List<CameraDescription> cameras;
 

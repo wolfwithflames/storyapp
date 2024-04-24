@@ -51,9 +51,12 @@ dependencies:
   logging: ^1.2.0
   device_info_plus: ^10.1.0
   dio: ^5.4.3+1
-  get: ^4.6.6
   connectivity_plus: ^6.0.2
   built_value: ^8.9.2
+  get_storage: ^2.1.1
+  pull_to_refresh: ^2.0.0
+  intl: ^0.19.0
+  carousel_slider: ^4.2.1
 
 dependency_overrides:
   photo_manager: ^3.0.0

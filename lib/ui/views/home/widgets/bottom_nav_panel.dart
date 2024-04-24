@@ -4,8 +4,8 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/bottom_item.dart';
 import '../../../../core/constants/constants.dart';
-import '../../../../widgets/image_view.dart';
-import '../../../../widgets/text_view.dart';
+import '../../../widgets/image_view.dart';
+import '../../../widgets/text_view.dart';
 
 class BottomNavigationPanel extends StatefulWidget {
   final Function(int) onNavItemTap;

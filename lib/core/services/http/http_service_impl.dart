@@ -4,9 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
 import 'package:storyapp/core/exceptions/network_exception.dart';
 import 'package:storyapp/core/services/http/http_service.dart';
+import 'package:storyapp/core/utils/file_helper.dart';
+import 'package:storyapp/core/utils/network_utils.dart' as network_utils;
+import 'package:storyapp/core/utils/pref_utils.dart';
 import 'package:storyapp/getIt.dart';
-import 'package:storyapp/ui/utils/file_helper.dart';
-import 'package:storyapp/ui/utils/network_utils.dart' as network_utils;
 
 /// Helper service that abstracts away common HTTP Requests
 class HttpServiceImpl implements HttpService {
@@ -23,6 +24,12 @@ class HttpServiceImpl implements HttpService {
 
     try {
       final fullRoute = route;
+      String? authToken = PrefsUtils.getAuthToken();
+      if (authToken != null) {
+        _dio.options.headers.addAll({
+          "Authorization": "Bearer $authToken",
+        });
+      }
       response = await _dio.get(
         fullRoute,
         options: Options(
@@ -48,6 +55,13 @@ class HttpServiceImpl implements HttpService {
 
     try {
       final fullRoute = route;
+      String? authToken = PrefsUtils.getAuthToken();
+      if (authToken != null) {
+        _dio.options.headers.addAll({
+          "Authorization": "Bearer $authToken",
+        });
+      }
+
       response = await _dio.post(
         fullRoute,
         data: body,

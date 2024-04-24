@@ -11,4 +11,5 @@ class ApiRoutes {
   static const users = '$baseUrl/users';
   static const login = '${baseUrl}auth/login';
   static const updateProfile = '${baseUrl}auth/update-profile';
+  static const getPastStory = '${baseUrl}story';
 }

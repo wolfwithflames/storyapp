@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:media_picker_widget/media_picker_widget.dart';
-import 'package:storyapp/widgets/edit_text.dart';
-import 'package:storyapp/widgets/image_view.dart';
-import 'package:storyapp/widgets/text_view.dart';
+import 'package:storyapp/ui/widgets/edit_text.dart';
+import 'package:storyapp/ui/widgets/image_view.dart';
+import 'package:storyapp/ui/widgets/text_view.dart';
 
-import '../../../widgets/raised_button.dart';
+import '../../widgets/raised_button.dart';
 
 @RoutePage()
 class AddStoryScreen extends StatefulWidget {

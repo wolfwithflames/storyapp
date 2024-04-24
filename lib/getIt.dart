@@ -7,7 +7,7 @@ import 'package:storyapp/core/services/hardware_info/hardware_info_service_impl.
 import 'package:storyapp/core/services/http/http_service_impl.dart';
 import 'package:storyapp/core/services/snackbar/snack_bar_service_impl.dart';
 import 'package:storyapp/core/users/users_remote_data_source.dart';
-import 'package:storyapp/ui/utils/file_helper.dart';
+import 'package:storyapp/core/utils/file_helper.dart';
 
 import 'core/repositories/users_repository/users_repository.dart';
 import 'core/repositories/users_repository/users_repository_impl.dart';

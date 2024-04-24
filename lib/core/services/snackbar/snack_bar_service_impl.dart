@@ -29,7 +29,7 @@ class SnackBarServiceImpl implements SnackBarService {
 
   @override
   void completeSnackBar(SnackBarResponse response) {
-    getIt<AppRouter>().maybePop();
+    getIt<AppRouter>().back();
     _snackBarCompleter!.complete(response);
     _snackBarCompleter = null;
   }

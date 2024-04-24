@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:storyapp/core/constants/constants.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:storyapp/firebase_options.dart';
 import 'package:storyapp/getIt.dart';
 import 'package:storyapp/ui/views/camera_view/camera_screen.dart';
@@ -14,8 +14,12 @@ Future<void> main() async {
   /// Initialize getIt
   await initGetit();
 
-  /// Initializes Firebase with the default options for the current platform.
+  /// Initializes the Firebase app with the provided options.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  /// Initializes the GetStorage library. For local preferences storage.
+  await GetStorage.init();
+
   cameras = await availableCameras();
   runApp(
     MaterialApp.router(
@@ -24,7 +28,6 @@ Future<void> main() async {
       builder: (_, router) {
         return router ?? const FlutterLogo();
       },
-      scaffoldMessengerKey: Constants.scaffoldMessengerKey,
     ),
   );
 }

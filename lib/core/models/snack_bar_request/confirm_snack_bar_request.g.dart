@@ -19,11 +19,10 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
       (new ConfirmSnackBarRequestBuilder()..update(updates))._build();
 
   _$ConfirmSnackBarRequest._(
-      {required this.message, required this.buttonText, this.onPressed})
+      {required this.message, this.buttonText, this.onPressed})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         message, r'ConfirmSnackBarRequest', 'message');
-    buttonText;
   }
 
   @override

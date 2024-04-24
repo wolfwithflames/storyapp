@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:storyapp/core/utils/pref_utils.dart';
 
-import '../../../core/logger/app_logger.dart';
+import '../../../getIt.dart';
+import '../../logger/app_logger.dart';
+import '../../router/router.dart';
 import 'auth_response.dart';
 
 /// This class represents a utility class for Firebase operations.
@@ -9,7 +12,13 @@ class FirebaseUtils {
   static FirebaseUtils instance = FirebaseUtils();
 
   /// The Firebase Authentication instance.
-  static FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  logOut() async {
+    await firebaseAuth.signOut();
+    PrefsUtils.clearAuthToken();
+    getIt<AppRouter>().replaceNamed(Routes.auth);
+  }
 
   /// This method initiates the phone authentication process by calling the `verifyPhoneNumber` method from the `firebaseAuth` instance.
   /// It handles any exceptions that may occur during the authentication process and returns an `AuthResponse` object.

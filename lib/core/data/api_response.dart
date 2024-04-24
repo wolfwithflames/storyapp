@@ -1,6 +1,6 @@
 import 'package:storyapp/core/data/json_serializable.dart';
 
-class ApiResponse<T extends Serializable> {
+class ApiResponse<T> {
   bool status;
   String message;
   T data;
@@ -11,7 +11,7 @@ class ApiResponse<T extends Serializable> {
   });
 
   factory ApiResponse.fromJson(
-      Map<String, dynamic> json, Function(Map<String, dynamic>) create) {
+      Map<String, dynamic> json, Function(dynamic) create) {
     return ApiResponse<T>(
       status: JsonSerializable.boolParse(json["status"]),
       message: json["message"],
@@ -22,7 +22,7 @@ class ApiResponse<T extends Serializable> {
   Map<String, dynamic> toJson() => {
         "status": this.status,
         "message": this.message,
-        "data": this.data.toJson(),
+        "data": this.data,
       };
 }
 

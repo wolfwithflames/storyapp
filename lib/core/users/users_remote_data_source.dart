@@ -1,11 +1,15 @@
 import 'package:storyapp/core/constants/api_routes.dart';
 import 'package:storyapp/core/data/api_response.dart';
+import 'package:storyapp/core/models/dated_stories/dated_stories.dart';
 import 'package:storyapp/core/models/user/user.dart';
 import 'package:storyapp/core/services/http/http_service.dart';
 import 'package:storyapp/getIt.dart';
 
 abstract class UsersRemoteDataSource {
   Future<ApiResponse<User>> loginUser(String phone);
+  Future<ApiResponse<User>> updateProfile(
+      {required String firstName, required String lastName});
+  Future<ApiResponse<List<DatedStories>>> getPastWeek();
 }
 
 class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
@@ -17,5 +21,27 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
       "phone": phone,
     }) as Map<String, dynamic>;
     return ApiResponse<User>.fromJson(postsMap, (data) => User.fromJson(data));
+  }
+
+  @override
+  Future<ApiResponse<User>> updateProfile({
+    required String firstName,
+    required String lastName,
+  }) async {
+    final postsMap = await httpService.postHttp(ApiRoutes.updateProfile, {
+      "firstName": firstName,
+      "lastName": lastName,
+    }) as Map<String, dynamic>;
+
+    return ApiResponse<User>.fromJson(postsMap, (data) => User.fromJson(data));
+  }
+
+  @override
+  Future<ApiResponse<List<DatedStories>>> getPastWeek() async {
+    final postsMap = await httpService.getHttp(ApiRoutes.getPastStory)
+        as Map<String, dynamic>;
+
+    return ApiResponse.fromJson(postsMap,
+        (data) => (data as List).map((e) => DatedStories.fromJson(e)).toList());
   }
 }
