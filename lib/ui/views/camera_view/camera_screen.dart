@@ -1,9 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 import 'package:storyapp/ui/views/camera_view/camera_view_model.dart';
-import 'package:storyapp/ui/views/main_nav/main_nav_view_model.dart';
 import 'package:storyapp/ui/widgets/text_view.dart';
 
 late List<CameraDescription> cameras;
@@ -25,7 +23,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CameraViewModel>.reactive(
       viewModelBuilder: () => CameraViewModel(),
-      onViewModelReady: (viewModel) async => await viewModel.init(),
+      onViewModelReady: (viewModel) async => await viewModel.init(context),
       builder: (context, model, child) {
         if (cameras.isEmpty) {
           return const Center(
@@ -37,12 +35,12 @@ class _CameraScreenState extends State<CameraScreen> {
         }
         return PopScope(
           canPop: false,
-          onPopInvoked: (didPop) => context.read<MainNavVM>().changePage(1),
+          onPopInvoked: (didPop) => model.gotoDashboard,
           child: GestureDetector(
             onVerticalDragUpdate: (details) {
               int sensitivity = 12;
               if (details.delta.dy < -sensitivity) {
-                context.read<CameraViewModel>().openImagePicker(context);
+                model.openImagePicker(context);
               }
             },
             child: Stack(
@@ -66,8 +64,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: IconButton(
-                        onPressed: () =>
-                            context.read<MainNavVM>().changePage(1),
+                        onPressed: model.gotoDashboard,
                         icon: const Icon(
                           Icons.close,
                           color: Colors.white,

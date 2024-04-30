@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:media_picker_widget/media_picker_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 import 'package:storyapp/core/router/router.dart';
 import 'package:storyapp/getIt.dart';
+import 'package:storyapp/ui/views/main_nav/main_nav_view_model.dart';
 
 import '../../../core/logger/app_logger.dart';
 import 'camera_screen.dart';
 
 class CameraViewModel extends BaseViewModel {
   late CameraController camController;
+  late MainNavVM mainNavVM;
 
   Future<Media?> openImagePicker(BuildContext context,
       {MediaType? type}) async {
@@ -62,7 +65,11 @@ class CameraViewModel extends BaseViewModel {
   }
 
   Future<void> routeToAddStory({Media? media}) async {
-    await getIt<AppRouter>().push(AddStoryRoute(media: media));
+    final result =
+        await getIt<AppRouter>().push<bool?>(AddStoryRoute(media: media));
+    if (result != null && result) {
+      gotoDashboard();
+    }
   }
 
   onCameraCapture() async {
@@ -79,7 +86,8 @@ class CameraViewModel extends BaseViewModel {
     }
   }
 
-  init() {
+  init(BuildContext context) {
+    mainNavVM = context.read<MainNavVM>();
     if (cameras.isNotEmpty) {
       camController = CameraController(cameras[0], ResolutionPreset.max);
       camController.initialize().then((_) {
@@ -105,5 +113,9 @@ class CameraViewModel extends BaseViewModel {
     if (cameras.isNotEmpty) {
       camController.dispose();
     }
+  }
+
+  gotoDashboard() {
+    mainNavVM.changePage(1);
   }
 }

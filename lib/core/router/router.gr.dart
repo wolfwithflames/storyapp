@@ -18,7 +18,7 @@ abstract class _$AppRouter extends RootStackRouter {
     AddStoryRoute.name: (routeData) {
       final args = routeData.argsAs<AddStoryRouteArgs>(
           orElse: () => const AddStoryRouteArgs());
-      return AutoRoutePage<dynamic>(
+      return AutoRoutePage<bool>(
         routeData: routeData,
         child: AddStoryScreen(
           key: args.key,

@@ -37,7 +37,7 @@ class EditText extends StatelessWidget {
   bool isErrorBorder;
   bool enableSuggestions;
   bool enableInteractiveSelection;
-  TextInputAction? inputAction;
+  TextInputAction inputAction;
   Function(String value)? onFieldSubmitted;
   Function(String value)? onChanged;
   Function()? onEditingComplete;
@@ -92,7 +92,7 @@ class EditText extends StatelessWidget {
     this.enable = true,
     this.enableSuggestions = true,
     this.enableInteractiveSelection = true,
-    this.inputAction,
+    this.inputAction = TextInputAction.done,
     this.onFieldSubmitted,
     this.onChanged,
     this.onEditingComplete,

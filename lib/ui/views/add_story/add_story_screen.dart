@@ -9,7 +9,7 @@ import 'package:storyapp/ui/widgets/text_view.dart';
 
 import '../../widgets/raised_button.dart';
 
-@RoutePage()
+@RoutePage<bool>()
 class AddStoryScreen extends StatelessWidget {
   final Media? media;
   const AddStoryScreen({super.key, this.media});
@@ -17,7 +17,8 @@ class AddStoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddStoryViewModel>.reactive(
-      viewModelBuilder: () => AddStoryViewModel()..init(),
+      viewModelBuilder: () => AddStoryViewModel(),
+      onViewModelReady: (viewModel) => viewModel.init(),
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(

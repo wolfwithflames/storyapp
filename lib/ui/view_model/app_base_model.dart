@@ -35,7 +35,5 @@ class AppBaseViewModel extends BaseViewModel {
     }
   }
 
-  init() {
-    return this;
-  }
+  init() {}
 }
