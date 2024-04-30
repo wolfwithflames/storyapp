@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>157714433125-vnklr6uga213g1m3rhfj9u985qplos9j.apps.googleusercontent.com</string>
+	<string>157714433125-9dirfeagqsd6msvt8lipk1lb6juh7g75.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.157714433125-vnklr6uga213g1m3rhfj9u985qplos9j</string>
+	<string>com.googleusercontent.apps.157714433125-9dirfeagqsd6msvt8lipk1lb6juh7g75</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCC2e7jGa8frVFJ2_gSf4bKsY-BxMWVvGw</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.story.app</string>
+	<string>com.story.board</string>
 	<key>PROJECT_ID</key>
 	<string>storyapp-3de04</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:157714433125:ios:b0bd53e458b73a8fe5728c</string>
+	<string>1:157714433125:ios:5be1b140f8b9eec1e5728c</string>
 </dict>
 </plist>

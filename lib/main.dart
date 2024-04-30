@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,7 @@ Future<void> main() async {
     MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: getIt<AppRouter>().config(),
-      builder: (_, router) {
-        return router ?? const FlutterLogo();
-      },
+      builder: BotToastInit(),
     ),
   );
 }

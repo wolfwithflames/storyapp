@@ -102,6 +102,8 @@ class CameraViewModel extends BaseViewModel {
   @override
   void dispose() {
     super.dispose();
-    camController.dispose();
+    if (cameras.isNotEmpty) {
+      camController.dispose();
+    }
   }
 }

@@ -8,25 +8,24 @@ class Story {
   String? id;
   String? title;
   String? description;
+  String? imageUrl;
   String? createdBy;
   DateTime? createdAt;
   DateTime? updatedAt;
-  @JsonKey(name: '__v')
-  int? v;
 
   Story({
     this.id,
     this.title,
     this.description,
+    this.imageUrl,
     this.createdBy,
     this.createdAt,
     this.updatedAt,
-    this.v,
   });
 
   @override
   String toString() {
-    return 'Story(id: $id, title: $title, description: $description, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, v: $v)';
+    return 'Story(id: $id, title: $title, description: $description, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, imageUrl: $imageUrl)';
   }
 
   factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
@@ -37,6 +36,7 @@ class Story {
     String? id,
     String? title,
     String? description,
+    String? imageUrl,
     String? createdBy,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -46,10 +46,10 @@ class Story {
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
+      imageUrl: imageUrl ?? this.imageUrl,
       createdBy: createdBy ?? this.createdBy,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      v: v ?? this.v,
     );
   }
 }

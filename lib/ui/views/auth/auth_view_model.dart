@@ -9,23 +9,19 @@ import 'package:storyapp/core/data/api_response.dart';
 import 'package:storyapp/core/data/countries.dart';
 import 'package:storyapp/core/data/enums.dart';
 import 'package:storyapp/core/exceptions/repository_exception.dart';
-import 'package:storyapp/core/logger/app_logger.dart';
-import 'package:storyapp/core/models/snack_bar_request/confirm_snack_bar_request.dart';
 import 'package:storyapp/core/models/user/user.dart' as user;
 import 'package:storyapp/core/repositories/users_repository/users_repository.dart';
 import 'package:storyapp/core/router/router.dart';
-import 'package:storyapp/core/services/snackbar/snack_bar_service.dart';
 import 'package:storyapp/core/utils/pref_utils.dart';
-import 'package:storyapp/core/utils/snackbar_utils.dart';
 import 'package:storyapp/getIt.dart';
 import 'package:storyapp/ui/view_model/app_base_model.dart';
+import 'package:storyapp/ui/widgets/toast.dart';
 
 import '../../../core/constants/app_strings.dart';
 import '../../../core/utils/firebase_utils/firebase_utils.dart';
 
 class AuthViewModel extends AppBaseViewModel {
   final _usersRepository = getIt<UsersRepository>();
-  final _snackBarService = getIt<SnackBarService>();
 
   final pinController = TextEditingController();
   final phoneController = TextEditingController();
@@ -158,7 +154,7 @@ class AuthViewModel extends AppBaseViewModel {
       setViewState(ViewState.ideal);
     } catch (e) {
       setViewState(ViewState.ideal);
-      AppLog.e(e);
+      botToast("$e");
     }
   }
 
@@ -174,25 +170,13 @@ class AuthViewModel extends AppBaseViewModel {
       verificationCompleted: (authCred) async {},
       verificationFailed: (exception) {
         if (exception.code == "missing-client-identifier") {
-          SnackbarUtility.showSnackBar(
-            scaffoldKey.currentState!,
-            AppStrings.reCAPTCHACheckError,
-          );
+          botToast(AppStrings.reCAPTCHACheckError);
         } else if (exception.code == "too-many-requests") {
-          SnackbarUtility.showSnackBar(
-            scaffoldKey.currentState!,
-            AppStrings.reCAPTCHACheckError,
-          );
+          botToast(AppStrings.reCAPTCHACheckError);
         } else if (exception.code == 'invalid-phone-number') {
-          SnackbarUtility.showSnackBar(
-            scaffoldKey.currentState!,
-            AppStrings.invalidPhoneNumber,
-          );
+          botToast(AppStrings.invalidPhoneNumber);
         } else {
-          SnackbarUtility.showSnackBar(
-            scaffoldKey.currentState!,
-            exception.message ?? "",
-          );
+          botToast(exception.message ?? "");
         }
       },
       codeAutoRetrievalTimeout: (verificationId) {},
@@ -236,6 +220,7 @@ class AuthViewModel extends AppBaseViewModel {
           await _usersRepository.loginUser(phone.trim().removeAllWhitespace);
       if (loginResponse.status) {
         PrefsUtils.setAuthToken(loginResponse.data.token!);
+        PrefsUtils.setUserData(loginResponse.data);
         if (!(loginResponse.data.isProfileCompleted ?? true)) {
           getIt<AppRouter>().replaceNamed(Routes.register);
           return;
@@ -244,16 +229,10 @@ class AuthViewModel extends AppBaseViewModel {
       } else {
         await FirebaseUtils.instance.firebaseAuth.signOut();
         setIdealState();
-        final request = ConfirmSnackBarRequest(
-          (r) => r..message = loginResponse.message,
-        );
-        _snackBarService.showSnackBar(request);
+        botToast(loginResponse.message);
       }
     } on RepositoryException catch (e) {
-      final request = ConfirmSnackBarRequest(
-        (r) => r..message = e.message,
-      );
-      _snackBarService.showSnackBar(request);
+      botToast(e.message);
       setIdealState();
     }
   }
@@ -263,6 +242,9 @@ class AuthViewModel extends AppBaseViewModel {
     super.init();
     if (kDebugMode) {
       phoneController.text = "9033550092";
+
+      final country = countries.firstWhere((element) => element.code == '+91');
+      onCountryChanged(country);
     }
     return this;
   }

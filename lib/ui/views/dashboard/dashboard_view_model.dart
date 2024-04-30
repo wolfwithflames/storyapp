@@ -2,14 +2,14 @@ import 'package:get/state_manager.dart';
 import 'package:storyapp/core/data/enums.dart';
 import 'package:storyapp/core/logger/app_logger.dart';
 import 'package:storyapp/core/models/dated_stories/dated_stories.dart';
-import 'package:storyapp/core/repositories/users_repository/users_repository.dart';
+import 'package:storyapp/core/repositories/story_repository/story_repository.dart';
 import 'package:storyapp/getIt.dart';
 import 'package:storyapp/ui/view_model/app_base_model.dart';
 
 import '../../../core/data/api_response.dart';
 
 class DashboardViewModel extends AppBaseViewModel {
-  final _usersRepository = getIt<UsersRepository>();
+  final _storyRepository = getIt<StoryRepository>();
   List<DatedStories> stories = [];
 
   @override
@@ -20,7 +20,7 @@ class DashboardViewModel extends AppBaseViewModel {
 
   getPastStories() async {
     final ApiResponse<List<DatedStories>> storiesResponse =
-        await _usersRepository.getPastWeek();
+        await _storyRepository.getPastWeek();
 
     if (storiesResponse.status) {
       setApiResponseStatus(ApiResponseStatus.success);

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:storyapp/core/models/user/user.dart';
 
 class PrefsUtils {
   static final _box = GetStorage();
@@ -21,16 +22,31 @@ class PrefsUtils {
 
   /// Auth token prefrences
   static void setAuthToken(String value) =>
-      _box.write(StorageKeys.authToken, value);
+      _box.write(PrefKeys.authToken, value);
 
-  static String? getAuthToken() => _box.read(StorageKeys.authToken);
+  static String? getAuthToken() => _box.read(PrefKeys.authToken);
 
-  static void clearAuthToken() => _box.remove(StorageKeys.authToken);
+  static void clearAuthToken() => _box.remove(PrefKeys.authToken);
+
+  /// User data prefrences
+  static void setUserData(User value) =>
+      _box.write(PrefKeys.userData, value.toJson());
+
+  static User? getUserData<T>() {
+    var data = _box.read(PrefKeys.userData);
+    if (data != null) {
+      return User.fromJson(data);
+    }
+    return null;
+  }
+
+  static void clearUserData() => _box.remove(PrefKeys.userData);
 }
 
-class StorageKeys {
+class PrefKeys {
   static const authToken = "authToken";
   static const seen = "seen";
+  static const userData = "userData";
 }
 
 String getPrettyJSONString(jsonObject) {

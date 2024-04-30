@@ -63,7 +63,6 @@ class AuthScreen extends StatelessWidget {
                         hint: "Phone",
                         controller: model.phoneController,
                         enable: !model.isOtpSent,
-
                         inputType: TextInputType.phone,
                         // maxLength: model.selectedCountry?.maxLength,
                         autovalidateMode: AutovalidateMode.onUserInteraction,

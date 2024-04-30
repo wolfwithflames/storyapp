@@ -1,18 +1,20 @@
 import 'package:get_it/get_it.dart';
+import 'package:storyapp/core/data_sources/story/story_remote_data_source.dart';
+import 'package:storyapp/core/data_sources/users/users_remote_data_source.dart';
+import 'package:storyapp/core/repositories/story_repository/story_repository.dart';
+import 'package:storyapp/core/repositories/story_repository/story_repository_impl.dart';
 import 'package:storyapp/core/router/router.dart';
 import 'package:storyapp/core/services/connectivity/connectivity_service.dart';
 import 'package:storyapp/core/services/connectivity/connectivity_service_impl.dart';
 import 'package:storyapp/core/services/hardware_info/hardware_info_service.dart';
 import 'package:storyapp/core/services/hardware_info/hardware_info_service_impl.dart';
 import 'package:storyapp/core/services/http/http_service_impl.dart';
-import 'package:storyapp/core/services/snackbar/snack_bar_service_impl.dart';
-import 'package:storyapp/core/users/users_remote_data_source.dart';
 import 'package:storyapp/core/utils/file_helper.dart';
+import 'package:storyapp/core/utils/image_compress_utils.dart';
 
 import 'core/repositories/users_repository/users_repository.dart';
 import 'core/repositories/users_repository/users_repository_impl.dart';
 import 'core/services/http/http_service.dart';
-import 'core/services/snackbar/snack_bar_service.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -31,17 +33,20 @@ Future<void> initGetit() async {
   getIt.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );
-  getIt.registerLazySingleton<SnackBarService>(() => SnackBarServiceImpl());
   getIt.registerLazySingleton<HttpService>(() => HttpServiceImpl());
 
   // Data sources
   getIt.registerLazySingleton<UsersRemoteDataSource>(
-    () => UsersRemoteDataSourceImpl(),
-  );
+      () => UsersRemoteDataSourceImpl());
+  getIt.registerLazySingleton<StoryRemoteDataSource>(
+      () => StoryRemoteDataSourceImpl());
 
   /// Repositories
   getIt.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl());
+  getIt.registerLazySingleton<StoryRepository>(() => StoryRepositoryImpl());
 
   // Utils
   getIt.registerLazySingleton<FileHelper>(() => FileHelperImpl());
+  getIt.registerLazySingleton<ImageCompressHelper>(
+      () => ImageCompressHelperImpl());
 }

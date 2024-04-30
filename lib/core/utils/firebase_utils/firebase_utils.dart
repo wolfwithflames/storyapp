@@ -1,5 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:mime/mime.dart';
+import 'package:storyapp/core/utils/image_compress_utils.dart';
 import 'package:storyapp/core/utils/pref_utils.dart';
+import 'package:storyapp/ui/widgets/toast.dart';
 
 import '../../../getIt.dart';
 import '../../logger/app_logger.dart';
@@ -11,8 +17,13 @@ class FirebaseUtils {
   /// The static instance of the [FirebaseUtils] class.
   static FirebaseUtils instance = FirebaseUtils();
 
+  final _imageCompressHelper = getIt<ImageCompressHelper>();
+
   /// The Firebase Authentication instance.
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  // /// The Firebase Storage instance.
+  Reference firebaseStorage = FirebaseStorage.instance.ref();
 
   logOut() async {
     await firebaseAuth.signOut();
@@ -131,11 +142,9 @@ class FirebaseUtils {
 
       return userCredential;
     } on FirebaseAuthException catch (e) {
-      AppLog.d(e);
-
       throw AuthResponse.getErrorString(e);
     } catch (e) {
-      AppLog.d(e);
+      botToast("$e");
     }
     return null;
   }
@@ -167,31 +176,34 @@ class FirebaseUtils {
   ///
   /// Outputs:
   /// - Returns the download URL of the uploaded file if the upload was successful. Otherwise, returns null.
-  // Future<String?> uploadFile({
-  //   required File? file,
-  //   required String path,
-  //   String? fileName,
-  //   String? mimeType,
-  // }) async {
-  //   try {
-  //     if (file != null) {
-  //       path = "v2/$path";
-  //       var mime = mimeType ?? lookupMimeType(path);
+  Future<String?> uploadFile({
+    required File? file,
+    required String path,
+    String? fileName,
+    String? mimeType,
+  }) async {
+    try {
+      if (file != null) {
+        final compressedImage = await _imageCompressHelper.compressFile(file);
 
-  //       TaskSnapshot snapshot = await firebaseStorageInstance
-  //           .child(path)
-  //           .child(fileName ?? path.split(".").first)
-  //           .putFile(file, SettableMetadata(contentType: mime));
-  //       if (snapshot.state == TaskState.success) {
-  //         final String downloadUrl = await snapshot.ref.getDownloadURL();
-  //         return downloadUrl;
-  //       }
-  //     }
-  //   } catch (e) {
-  //     AppLog.d(e);
-  //   }
-  //   return null;
-  // }
+        if (compressedImage != null) {
+          var mime = mimeType ?? lookupMimeType(file.path);
+
+          TaskSnapshot snapshot = await firebaseStorage
+              .child(path)
+              .child(fileName ?? path.split(".").first)
+              .putData(compressedImage, SettableMetadata(contentType: mime));
+          if (snapshot.state == TaskState.success) {
+            final String downloadUrl = await snapshot.ref.getDownloadURL();
+            return downloadUrl;
+          }
+        }
+      }
+    } catch (e) {
+      AppLog.d(e);
+    }
+    return null;
+  }
 
   /// Retrieves the Firebase Cloud Messaging (FCM) token.
   ///

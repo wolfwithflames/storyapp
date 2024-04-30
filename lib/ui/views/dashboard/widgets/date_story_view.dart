@@ -46,7 +46,7 @@ class DateStoryView extends StatelessWidget {
                         width: double.maxFinite,
                         clipBehavior: Clip.hardEdge,
                         child: ImageView(
-                          "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                          story.imageUrl,
                           ImageType.url,
                           fit: BoxFit.cover,
                         ),
@@ -59,7 +59,7 @@ class DateStoryView extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       TextView(
-                        story.description! * 10,
+                        story.description!,
                         fontSize: 14,
                         maxLines: 3,
                         textOverflow: TextOverflow.ellipsis,
