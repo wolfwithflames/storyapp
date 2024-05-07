@@ -35,6 +35,7 @@ target 'Runner' do
   target 'RunnerTests' do
     inherit! :search_paths
   end
+  # Sharing extenstion imeplementation
   target 'Share Extension' do
     inherit! :search_paths
   end
