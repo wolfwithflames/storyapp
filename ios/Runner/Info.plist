@@ -34,6 +34,15 @@
 				<string>com.googleusercontent.apps.157714433125-9dirfeagqsd6msvt8lipk1lb6juh7g75</string>
 			</array>
 		</dict>
+		<!-- Sharing intenet -->
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ShareMedia-$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
@@ -64,5 +73,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- Sharing group ID -->
+	<key>AppGroupId</key>
+	<string>$(CUSTOM_GROUP_ID)</string>
 </dict>
 </plist>
