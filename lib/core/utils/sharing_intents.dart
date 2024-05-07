@@ -7,6 +7,25 @@ import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import '../../getIt.dart';
 import '../router/router.dart';
 
+/// A class representing the `SharingIntent`.
+///
+/// This class is responsible for handling media sharing intents coming from outside the app.
+/// It provides methods to start listening for media sharing intents and route them to the appropriate destination.
+///
+/// Example usage:
+///
+/// ```dart
+/// SharingIntent sharingIntent = SharingIntent();
+/// sharingIntent.startMediaSaringIntent();
+/// ```
+///
+/// Note: This class requires the `media_picker_widget` and `receive_sharing_intent` packages to be imported.
+///
+/// See also:
+///
+/// - [MediaPickerWidget](https://pub.dev/packages/media_picker_widget), a package for picking media files.
+/// - [ReceiveSharingIntent](https://pub.dev/packages/receive_sharing_intent), a package for receiving sharing intents.
+
 class SharingIntent {
   late StreamSubscription _intentSub;
 
