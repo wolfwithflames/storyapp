@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stacked/stacked.dart';
 
 import '../camera_view/camera_screen.dart';
 import '../home/home_nav_screen.dart';
@@ -17,9 +18,9 @@ class MainNavPage extends StatefulWidget {
 class _MainNavPageState extends State<MainNavPage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MainNavVM>(
-      create: (BuildContext context) => MainNavVM(),
-      builder: (context, child) => Scaffold(
+    return ViewModelBuilder<MainNavVM>.reactive(
+      viewModelBuilder: () => MainNavVM()..init(),
+      builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         body: PageView(
           controller: context.read<MainNavVM>().controller,

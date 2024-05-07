@@ -232,6 +232,7 @@ class AuthViewModel extends AppBaseViewModel {
         botToast(loginResponse.message);
       }
     } on RepositoryException catch (e) {
+      await FirebaseUtils.instance.firebaseAuth.signOut();
       botToast(e.message);
       setIdealState();
     }

@@ -11,6 +11,7 @@ import 'package:storyapp/core/services/hardware_info/hardware_info_service_impl.
 import 'package:storyapp/core/services/http/http_service_impl.dart';
 import 'package:storyapp/core/utils/file_helper.dart';
 import 'package:storyapp/core/utils/image_compress_utils.dart';
+import 'package:storyapp/core/utils/sharing_intents.dart';
 
 import 'core/repositories/users_repository/users_repository.dart';
 import 'core/repositories/users_repository/users_repository_impl.dart';
@@ -49,4 +50,5 @@ Future<void> initGetit() async {
   getIt.registerLazySingleton<FileHelper>(() => FileHelperImpl());
   getIt.registerLazySingleton<ImageCompressHelper>(
       () => ImageCompressHelperImpl());
+  getIt.registerLazySingleton<SharingIntent>(() => SharingIntent());
 }
