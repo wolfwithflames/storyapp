@@ -26,8 +26,16 @@ class _CameraScreenState extends State<CameraScreen> {
       onViewModelReady: (viewModel) async => await viewModel.init(context),
       builder: (context, model, child) {
         if (cameras.isEmpty) {
-          return const Center(
-            child: TextView("No camera found"),
+          return GestureDetector(
+            onVerticalDragUpdate: (details) {
+              int sensitivity = 12;
+              if (details.delta.dy < -sensitivity) {
+                model.openImagePicker(context);
+              }
+            },
+            child: const Center(
+              child: TextView("No camera found"),
+            ),
           );
         }
         if (!model.camController.value.isInitialized) {
